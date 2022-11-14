@@ -36,6 +36,26 @@ client.connect(function(err) {
     }
 });
 
+app.get('/teacher/subject', (req, res) => {
+    const queryCommand = `SELECT * FROM teaching WHERE tid LIKE '${req.query.tid}'`;
+
+    client.query(queryCommand).then(response => {
+        console.log(response);
+        res.send({
+          status: "1",
+          info: response.rows
+        })
+    
+        isSend = true;
+      }).catch(err => {
+        console.log(err);
+        res.send({
+          staus: "0"
+        })
+      })
+    
+})
+
 // Get user information by searchning Id
 app.get('/user/info', (req, res) => {
   const queryCommand = "SELECT * FROM users_table";

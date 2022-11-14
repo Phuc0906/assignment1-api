@@ -195,6 +195,30 @@ app.get('/class', (req, res) => {
   
 });
 
+//get score list
+app.get('/student/scorelist', (req, res) => {
+    const classCode = "10A1";
+    const examType = "MID";
+    const subject = "Math";
+
+    const queryCommand = `SELECT * FROM exam WHERE examtype LIKE '${examType}' AND subject LIKE '${subject}' AND sid IN (SELECT sid FROM studying WHERE classcode LIKE '${classCode}')`;
+    // const queryCommand = "SELECT * FROM exam"
+    client.query(queryCommand).then(response => {
+        console.log(response);
+        res.send({
+          status: "1",
+          info: response.rows
+        })
+    
+        isSend = true;
+      }).catch(err => {
+        console.log(err);
+        res.send({
+          staus: "0"
+        })
+      })
+})
+
 // student score
 app.get('/student/score', (req, res) => {
   const stdid = req.query.stdid;

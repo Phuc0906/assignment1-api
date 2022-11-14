@@ -197,9 +197,9 @@ app.get('/class', (req, res) => {
 
 //get score list
 app.get('/student/scorelist', (req, res) => {
-    const classCode = "10A1";
-    const examType = "MID";
-    const subject = "Math";
+    const classCode = req.query.classcode;
+    const examType = req.query.examtype;
+    const subject = req.query.subject;
 
     const queryCommand = `SELECT * FROM exam WHERE examtype LIKE '${examType}' AND subject LIKE '${subject}' AND sid IN (SELECT sid FROM studying WHERE classcode LIKE '${classCode}')`;
     // const queryCommand = "SELECT * FROM exam"

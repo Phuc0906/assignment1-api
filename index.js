@@ -202,7 +202,8 @@ app.get('/student/scorelist', (req, res) => {
     const subject = req.query.subject;
 
     const queryCommand = `SELECT * FROM exam WHERE examtype LIKE '${examType}' AND subject LIKE '${subject}' AND sid IN (SELECT sid FROM studying WHERE classcode LIKE '${classCode}')`;
-    // const queryCommand = "SELECT * FROM exam"
+    
+    // const queryCommand = "SELECT * FROM studying WHERE classcode LIKE '10A2'"
     client.query(queryCommand).then(response => {
         console.log(response);
         res.send({

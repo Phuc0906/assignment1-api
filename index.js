@@ -215,6 +215,28 @@ app.get('/class', (req, res) => {
   
 });
 
+app.get('/student/class', (req, res) => {
+    const sid = req.query.sid;
+
+    const queryCommand = `SELECT classcode FROM studying WHERE sid LIKE '${sid}'`
+
+    client.query(queryCommand).then(response => {
+        console.log(response);
+        res.send({
+          status: "1",
+          info: response.rows
+        })
+    
+        isSend = true;
+      }).catch(err => {
+        console.log(err);
+        res.send({
+          staus: "0"
+        })
+      })
+
+})
+
 //get score list
 app.get('/student/scorelist', (req, res) => {
     const classCode = req.query.classcode;
